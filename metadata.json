@@ -1,0 +1,6 @@
+{
+  "name": "OpenBG AI",
+  "description": "A professional AI-powered background remover and image enhancer that works completely offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

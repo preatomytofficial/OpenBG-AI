@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenBG AI - Free Offline Background Remover</title>
+    <!-- Patch window.fetch and window.indexedDB (fixes sandboxed iframe restrictions) -->
+    <script>
+      (function() {
+        // Suppress cross-origin ad script errors and unhandled "Script error."
+        window.addEventListener('error', function(e) {
+          if (e.message === 'Script error.' || (e.filename && (e.filename.includes('effectivecpmnetwork') || e.filename.includes('highperformanceformat')))) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          if (e.reason && (e.reason.message === 'Script error.' || String(e.reason).includes('Script error'))) {
+            e.preventDefault();
+          }
+        });
+
+        // 1. Robust window.fetch Patch (prevents getter-only Assignment TypeErrors)
+        try {
+          let currentFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get() {
+              return currentFetch;
+            },
+            set(newFetch) {
+              currentFetch = newFetch;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn('Failed to define fetch property directly on window, trying Window.prototype:', e);
+          try {
+            let currentFetch = Window.prototype.fetch;
+            Object.defineProperty(Window.prototype, 'fetch', {
+              get() {
+                return currentFetch;
+              },
+              set(newFetch) {
+                currentFetch = newFetch;
+              },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e2) {
+            console.warn('Failed to patch fetch on Window.prototype:', e2);
+          }
+        }
+
+        // 2. Sandboxed IndexedDB Patch (prevents uncaught SecurityError crashes)
+        try {
+          if (window.indexedDB) {
+            const originalOpen = window.indexedDB.open;
+            window.indexedDB.open = function(...args) {
+              try {
+                return originalOpen.apply(this, args);
+              } catch (err) {
+                console.warn('IndexedDB.open failed inside sandboxed iframe, throwing catchable error:', err);
+                throw new Error('IndexedDB access is restricted in this sandboxed environment.');
+              }
+            };
+          }
+        } catch (e) {
+          console.warn('Failed to patch indexedDB open, disabling indexedDB as fallback:', e);
+          try {
+            Object.defineProperty(window, 'indexedDB', {
+              value: undefined,
+              writable: true,
+              configurable: true
+            });
+          } catch (err) {
+            console.warn('Could not disable indexedDB:', err);
+          }
+        }
+      })();
+    </script>
+    <!-- Vite will automatically bundle and inject the stylesheet -->
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <!-- Ads: Popunder -->
+    <script src="https://pl30098093.effectivecpmnetwork.com/7c/ac/33/7cac3359c03b47bf33209656f01ba3e3.js"></script>
+
+    <!-- Ads: Social Bar -->
+    <script src="https://pl30098095.effectivecpmnetwork.com/1b/b3/ce/1bb3ce0ea48f4c2ff1572fbf630a7f62.js"></script>
+  </head>
+  <body class="bg-[#08090a] text-slate-200 font-sans min-h-screen relative overflow-x-hidden selection:bg-cyan-500/35 selection:text-cyan-200">
+    <!-- Left Vertical Ad Sidebar (Tall/Lomba-lomba) -->
+    <div class="hidden xl:flex fixed left-2 2xl:left-6 top-24 bottom-4 w-[160px] bg-slate-900/40 border border-slate-800/80 rounded-2xl flex-col items-center justify-start p-3 text-center z-40 overflow-hidden shadow-2xl">
+      <span class="text-[9px] text-slate-500 font-mono tracking-widest uppercase mb-3">Advertisement</span>
+      <div class="w-full flex-1 flex items-center justify-center relative">
+        <iframe src="about:blank" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;align-items:center;width:160px;height:600px;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='container-0023f3dd33f85dc25010eb37ca663c06' style='width:160px;height:600px;'&gt;&lt;/div&gt;&lt;script async='async' data-cfasync='false' src='https://pl30098094.effectivecpmnetwork.com/0023f3dd33f85dc25010eb37ca663c06/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" class="w-[160px] h-[600px] border-0" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Right Vertical Ad Sidebar (Tall/Lomba-lomba) -->
+    <div class="hidden xl:flex fixed right-2 2xl:right-6 top-24 bottom-4 w-[160px] bg-slate-900/40 border border-slate-800/80 rounded-2xl flex-col items-center justify-start p-3 text-center z-40 overflow-hidden shadow-2xl">
+      <span class="text-[9px] text-slate-500 font-mono tracking-widest uppercase mb-3">Advertisement</span>
+      <div class="w-full flex-1 flex items-center justify-center relative">
+        <iframe src="about:blank" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;align-items:center;width:160px;height:600px;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='container-0023f3dd33f85dc25010eb37ca663c06' style='width:160px;height:600px;'&gt;&lt;/div&gt;&lt;script async='async' data-cfasync='false' src='https://pl30098094.effectivecpmnetwork.com/0023f3dd33f85dc25010eb37ca663c06/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" class="w-[160px] h-[600px] border-0" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Ambient glows matching High Density theme -->
+    <div class="absolute top-0 right-1/4 w-[40vw] h-[40vw] bg-cyan-950/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-[40vw] h-[40vw] bg-blue-950/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <!-- Header Navigation matching High Density -->
+    <nav class="h-16 shrink-0 flex items-center justify-between px-6 md:px-8 bg-black/40 border-b border-white/5 backdrop-blur-md sticky top-0 z-50">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        </div>
+        <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 font-display">OpenBG AI</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-400">
+          <a href="/index.html" class="hover:text-white transition-colors text-cyan-400">Background Remover</a>
+          <a href="/api.html" class="hover:text-white transition-colors">Developer Kit</a>
+        </div>
+        <a id="btn-get-api" href="/keys.html" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-semibold rounded-full shadow-lg shadow-cyan-500/10 transition-all border border-cyan-400/20">
+          Get API Key
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl xl:max-w-5xl 2xl:max-w-7xl mx-auto w-full px-4 py-8 md:py-12 flex flex-col justify-center min-h-[calc(100vh-4rem)] relative z-10">
+      
+      <!-- Top Banner Ad (728x90) -->
+      <div class="w-full flex justify-center mb-8 shrink-0 z-20">
+        <div class="w-full max-w-[728px] h-[90px] bg-slate-950/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center relative">
+          <span class="absolute top-1 right-2 text-[7px] text-slate-600 font-mono tracking-widest uppercase">Sponsored Banner</span>
+          <script>
+            atOptions = {
+              'key' : '9d18bb6b3fefe2137e9e157b3604a6f7',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/9d18bb6b3fefe2137e9e157b3604a6f7/invoke.js"></script>
+        </div>
+      </div>
+
+      <!-- STAGE 1: Drag and Drop Upload (Centered bento box when idle) -->
+      <div id="upload-stage" class="w-full max-w-4xl mx-auto flex flex-col items-center">
+        <!-- Title and Subtitle -->
+        <div class="text-center max-w-2xl mb-8 md:mb-12">
+          <h2 class="text-3xl md:text-5xl font-display font-extrabold tracking-tight text-white mb-4">
+            Professional AI Background <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Removal</span>
+          </h2>
+          <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+            Eliminate backgrounds with precision directly in your browser. 100% private, fully offline, and high resolution output with built-in clarity enhancements.
+          </p>
+        </div>
+
+        <div class="w-full border border-dashed border-white/10 hover:border-cyan-500/40 rounded-3xl p-8 md:p-16 text-center cursor-pointer transition-all duration-500 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md relative group shadow-2xl">
+          <!-- Checkerboard/Grid background inside upload panel -->
+          <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40 rounded-3xl"></div>
+          
+          <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/jpg" />
+          
+          <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 mx-auto flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-500/30 transition-all duration-300 shadow-lg shadow-black/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="text-cyan-400">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          
+          <h3 class="text-lg md:text-xl font-display font-semibold text-white mb-2">
+            Drag and drop your image here
+          </h3>
+          <p class="text-slate-400 text-xs md:text-sm mb-6">
+            Supports PNG, JPG, JPEG up to 10MB
+          </p>
+          <button class="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-cyan-950/40 transition-all duration-300">
+            Browse Files
+          </button>
+        </div>
+      </div>
+
+      <!-- STAGE 2: Loader Overlay -->
+      <div id="loader-stage" class="hidden flex-col items-center justify-center py-16 md:py-24 text-center w-full max-w-2xl mx-auto bg-white/[0.02] border border-white/10 rounded-3xl p-8 backdrop-blur-md shadow-2xl">
+        <div class="relative w-24 h-24 mb-6 mx-auto">
+          <!-- Animated outer glowing scanner ring -->
+          <div class="absolute inset-0 rounded-full border-4 border-slate-900"></div>
+          <div class="absolute inset-0 rounded-full border-4 border-t-cyan-500 border-r-cyan-400 border-b-transparent border-l-transparent animate-spin"></div>
+          <!-- Inner pulse -->
+          <div class="absolute inset-4 rounded-full bg-cyan-950/20 border border-cyan-500/20 flex items-center justify-center animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan-400">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+        </div>
+        
+        <h3 id="loader-status" class="text-lg md:text-xl font-display font-semibold text-white mb-2">
+          Initializing AI Model...
+        </h3>
+        <p id="loader-detail" class="text-slate-400 text-xs md:text-sm font-mono max-w-md mx-auto mb-6">
+          This only happens on the first load. Model is cached locally.
+        </p>
+
+        <!-- Custom Progress Bar -->
+        <div class="w-full max-w-sm mx-auto bg-slate-900 rounded-full h-2 overflow-hidden shadow-inner mb-2 border border-white/5">
+          <div id="loader-progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-0 transition-all duration-300 ease-out"></div>
+        </div>
+        <div id="loader-percent" class="text-cyan-400 font-mono text-xs font-semibold">
+          0%
+        </div>
+      </div>
+
+      <!-- STAGE 3: High Density Editor & Result Workspace -->
+      <div id="editor-stage" class="hidden flex-col lg:flex-row gap-6 items-stretch w-full">
+        <!-- Sidebar Controls (Left Column) -->
+        <aside class="w-full lg:w-80 flex flex-col gap-4 shrink-0">
+          
+          <!-- AI Enhancements Panel -->
+          <div class="p-5 bg-white/[0.03] border border-white/10 rounded-2xl flex flex-col gap-5 backdrop-blur-md">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500">AI Enhancement</h3>
+            
+            <div class="space-y-4">
+              <!-- Sharpness Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <label for="sharpness-slider" class="text-slate-300 font-medium">Edge Sharpening</label>
+                  <span id="sharpness-val" class="text-cyan-400 font-mono">0%</span>
+                </div>
+                <input type="range" id="sharpness-slider" min="0" max="100" value="0" class="w-full accent-cyan-500 cursor-pointer h-1 bg-slate-800 rounded-lg appearance-none" />
+              </div>
+
+              <!-- Contrast Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <label for="contrast-slider" class="text-slate-300 font-medium">Smart Contrast</label>
+                  <span id="contrast-val" class="text-cyan-400 font-mono">100%</span>
+                </div>
+                <input type="range" id="contrast-slider" min="50" max="150" value="100" class="w-full accent-cyan-500 cursor-pointer h-1 bg-slate-800 rounded-lg appearance-none" />
+              </div>
+
+              <!-- Brightness Slider -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <label for="brightness-slider" class="text-slate-300 font-medium">Brightness</label>
+                  <span id="brightness-val" class="text-cyan-400 font-mono">100%</span>
+                </div>
+                <input type="range" id="brightness-slider" min="50" max="150" value="100" class="w-full accent-cyan-500 cursor-pointer h-1 bg-slate-800 rounded-lg appearance-none" />
+              </div>
+
+              <!-- Engine Status indicator matching design theme -->
+              <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                <span class="text-xs text-slate-300 font-medium">U2Net Engine</span>
+                <div class="w-10 h-5 bg-cyan-600/30 rounded-full flex items-center px-1 border border-cyan-500/50">
+                  <div class="w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)] ml-auto"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Console Panel & Action Buttons -->
+          <div class="p-5 bg-white/[0.03] border border-white/10 rounded-2xl flex-1 flex flex-col backdrop-blur-md">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">Status Console</h3>
+            
+            <!-- Real-time dynamic system logs -->
+            <div id="console-log" class="flex-1 font-mono text-[10px] text-slate-400 space-y-2 overflow-y-auto max-h-[160px] md:max-h-[220px] scrollbar-thin scrollbar-thumb-slate-800">
+              <p class="text-green-400">[SYSTEM] Engine Initialized (v2.4.2)</p>
+              <p>[INFO] Model: u2net_human_seg</p>
+              <p>[INFO] Device: Local CPU via WebAssembly</p>
+              <p class="text-slate-500">[IDLE] Awaiting image input...</p>
+            </div>
+
+            <!-- Action Buttons wrapper -->
+            <div class="mt-4 pt-4 border-t border-white/5 space-y-2">
+              <button id="btn-remove-bg" class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold text-sm rounded-xl transition-all border border-cyan-400/20 shadow-lg shadow-cyan-950/30 flex items-center justify-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>Remove Background</span>
+              </button>
+
+              <div class="flex gap-2">
+                <button id="btn-reset" class="flex-1 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg transition-all">
+                  Upload Another
+                </button>
+                <button id="btn-download" disabled class="flex-1 py-2 bg-white hover:bg-slate-200 text-black disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed font-bold text-xs rounded-lg transition-all shadow-md flex items-center justify-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Workspace (Right Columns) -->
+        <div class="flex-grow flex flex-col gap-6">
+          
+          <!-- Unified Main Workspace Viewport -->
+          <div class="flex-1 relative bg-[#090d12] rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center min-h-[300px] md:min-h-[400px]">
+            <!-- Grid background pattern -->
+            <div id="grid-bg" class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-20"></div>
+
+            <!-- Checkerboard background for transparency -->
+            <div id="checkers-bg" class="absolute inset-0 alpha-checkers hidden"></div>
+            
+            <img id="img-result" class="max-w-full max-h-[380px] object-contain relative select-none opacity-0 transition-opacity duration-300 z-10" src="" alt="Output Preview" />
+            
+            <!-- Floating status badge -->
+            <div id="preview-badge" class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[10px] uppercase font-bold tracking-wider text-slate-400 z-20">
+              Original Preview
+            </div>
+
+            <!-- Hologram scan line overlay during remove-bg -->
+            <div id="scanner" class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.8)] hidden scanner-line z-20"></div>
+          </div>
+
+          <!-- Helper canvas for client-side processing -->
+          <canvas id="processing-canvas" class="hidden"></canvas>
+
+
+        </div>
+      </div>
+
+      <!-- Bottom Banner Ad (728x90) -->
+      <div class="w-full flex justify-center mt-8 shrink-0 z-20">
+        <div class="w-full max-w-[728px] h-[90px] bg-slate-950/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center relative">
+          <span class="absolute top-1 right-2 text-[7px] text-slate-600 font-mono tracking-widest uppercase">Sponsored Banner</span>
+          <script>
+            atOptions = {
+              'key' : '9d18bb6b3fefe2137e9e157b3604a6f7',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/9d18bb6b3fefe2137e9e157b3604a6f7/invoke.js"></script>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer Bar matching High Density -->
+    <footer class="h-12 bg-black/60 border-t border-white/5 px-6 md:px-8 flex items-center justify-between text-[11px] text-slate-500 relative z-25">
+      <div class="flex gap-4">
+        <span>© 2026 OpenBG AI</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="hidden sm:inline">Made by PreatomYT</span>
+        <span>•</span>
+        <span class="text-cyan-500/80">U2Net Local Inference</span>
+      </div>
+      <div class="flex gap-4 items-center font-mono">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          Local Engine: 127.0.0.1:5000
+        </span>
+        <span class="px-2 py-0.5 bg-slate-900 rounded border border-slate-800 text-[10px]">v2.4.2-stable</span>
+      </div>
+    </footer>
+
+    <!-- @imgly/background-removal library bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@2.x/dist/bundle.js"></script>
+    
+    <!-- Beautiful Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- AdBlocker Detector & Locker -->
+    <script type="module" src="/src/adblock.js"></script>
+
+    <!-- Vite will automatically link the main application logic script -->
+    <script type="module" src="/src/script.js"></script>
+  </body>
+</html>

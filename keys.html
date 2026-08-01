@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenBG AI - Premium Paid APIs</title>
+    <!-- Patch window.fetch and window.indexedDB (fixes sandboxed iframe restrictions) -->
+    <script>
+      (function() {
+        // Suppress cross-origin ad script errors and unhandled "Script error."
+        window.addEventListener('error', function(e) {
+          if (e.message === 'Script error.' || (e.filename && (e.filename.includes('effectivecpmnetwork') || e.filename.includes('highperformanceformat')))) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          if (e.reason && (e.reason.message === 'Script error.' || String(e.reason).includes('Script error'))) {
+            e.preventDefault();
+          }
+        });
+
+        try {
+          let currentFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get() { return currentFetch; },
+            set(newFetch) { currentFetch = newFetch; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn('Failed to define fetch', e);
+        }
+
+        try {
+          if (window.indexedDB) {
+            const originalOpen = window.indexedDB.open;
+            window.indexedDB.open = function(...args) {
+              try {
+                return originalOpen.apply(this, args);
+              } catch (err) {
+                console.warn('IndexedDB restricted:', err);
+                throw new Error('IndexedDB restricted in sandboxed environment.');
+              }
+            };
+          }
+        } catch (e) {
+          console.warn('Failed to patch indexedDB', e);
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <!-- Ads: Popunder -->
+    <script src="https://pl30098093.effectivecpmnetwork.com/7c/ac/33/7cac3359c03b47bf33209656f01ba3e3.js"></script>
+
+    <!-- Ads: Social Bar -->
+    <script src="https://pl30098095.effectivecpmnetwork.com/1b/b3/ce/1bb3ce0ea48f4c2ff1572fbf630a7f62.js"></script>
+  </head>
+  <body class="bg-[#08090a] text-slate-200 font-sans min-h-screen relative overflow-x-hidden selection:bg-cyan-500/35 selection:text-cyan-200">
+    <!-- Left Vertical Ad Sidebar (Tall/Lomba-lomba) -->
+    <div class="hidden xl:flex fixed left-2 2xl:left-6 top-24 bottom-4 w-[160px] bg-slate-900/40 border border-slate-800/80 rounded-2xl flex-col items-center justify-start p-3 text-center z-40 overflow-hidden shadow-2xl">
+      <span class="text-[9px] text-slate-500 font-mono tracking-widest uppercase mb-3">Advertisement</span>
+      <div class="w-full flex-1 flex items-center justify-center relative">
+        <iframe src="about:blank" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;align-items:center;width:160px;height:600px;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='container-0023f3dd33f85dc25010eb37ca663c06' style='width:160px;height:600px;'&gt;&lt;/div&gt;&lt;script async='async' data-cfasync='false' src='https://pl30098094.effectivecpmnetwork.com/0023f3dd33f85dc25010eb37ca663c06/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" class="w-[160px] h-[600px] border-0" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Right Vertical Ad Sidebar (Tall/Lomba-lomba) -->
+    <div class="hidden xl:flex fixed right-2 2xl:right-6 top-24 bottom-4 w-[160px] bg-slate-900/40 border border-slate-800/80 rounded-2xl flex-col items-center justify-start p-3 text-center z-40 overflow-hidden shadow-2xl">
+      <span class="text-[9px] text-slate-500 font-mono tracking-widest uppercase mb-3">Advertisement</span>
+      <div class="w-full flex-1 flex items-center justify-center relative">
+        <iframe src="about:blank" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='UTF-8'&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;align-items:center;width:160px;height:600px;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='container-0023f3dd33f85dc25010eb37ca663c06' style='width:160px;height:600px;'&gt;&lt;/div&gt;&lt;script async='async' data-cfasync='false' src='https://pl30098094.effectivecpmnetwork.com/0023f3dd33f85dc25010eb37ca663c06/invoke.js'&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" class="w-[160px] h-[600px] border-0" scrolling="no" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Ambient glows -->
+    <div class="absolute top-0 right-1/4 w-[40vw] h-[40vw] bg-cyan-950/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-[40vw] h-[40vw] bg-blue-950/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <!-- Header Navigation -->
+    <nav class="h-16 shrink-0 flex items-center justify-between px-6 md:px-8 bg-black/40 border-b border-white/5 backdrop-blur-md sticky top-0 z-50">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        </div>
+        <a href="/index.html" class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 font-display hover:opacity-80 transition-opacity">OpenBG AI</a>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-400">
+          <a href="/index.html" class="hover:text-white transition-colors">Background Remover</a>
+          <a href="/api.html" class="hover:text-white transition-colors">Developer Kit</a>
+        </div>
+        <a id="btn-get-api" href="/keys.html" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white text-sm font-semibold rounded-full shadow-lg shadow-cyan-500/10 transition-all border border-cyan-400/20 text-cyan-200">
+          Paid API Keys
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl xl:max-w-5xl mx-auto px-4 py-12 md:py-20 flex flex-col justify-center min-h-[calc(100vh-4rem)] relative z-10">
+      
+      <!-- Top Banner Ad (728x90) -->
+      <div class="w-full flex justify-center mb-8 shrink-0 z-20">
+        <div class="w-full max-w-[728px] h-[90px] bg-slate-950/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center relative">
+          <span class="absolute top-1 right-2 text-[7px] text-slate-600 font-mono tracking-widest uppercase">Sponsored Banner</span>
+          <script>
+            atOptions = {
+              'key' : '9d18bb6b3fefe2137e9e157b3604a6f7',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/9d18bb6b3fefe2137e9e157b3604a6f7/invoke.js"></script>
+        </div>
+      </div>
+      
+      <!-- Back Link Button -->
+      <div class="mb-8 flex items-center justify-between">
+        <a href="/index.html" class="inline-flex items-center space-x-2 group text-slate-400 hover:text-cyan-400 transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="group-hover:-translate-x-1 transition-transform duration-300">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span class="text-xs font-bold uppercase tracking-wider">Back to background remover</span>
+        </a>
+
+        <div class="flex items-center space-x-2 font-mono text-[10px] bg-white/[0.03] px-3 py-1.5 rounded-full border border-white/5 text-slate-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
+          <span>ENTERPRISE ENDPOINTS</span>
+        </div>
+      </div>
+
+      <!-- Page Title -->
+      <div class="text-center mb-10 md:mb-12">
+        <h1 class="text-3xl md:text-5xl font-display font-extrabold tracking-tight text-white mb-4">
+          Premium Paid <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">API Keys</span>
+        </h1>
+        <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+          Unlock commercial cloud endpoints with high-volume concurrency, elite precision, and ultra-fast response times.
+        </p>
+      </div>
+
+      <!-- Featured Personal LLM Powerhouse Section -->
+      <div class="mb-10 bg-gradient-to-r from-cyan-950/50 via-blue-950/50 to-slate-900/50 border border-cyan-500/30 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden gap-6 shadow-2xl backdrop-blur-md">
+        <div class="absolute right-0 top-0 w-80 h-full bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="flex-1 space-y-2 z-10 text-center md:text-left">
+          <div class="inline-flex items-center px-2.5 py-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 text-[10px] font-bold text-black rounded uppercase tracking-wider">Featured Offline Package</div>
+          <h2 class="text-2xl md:text-3xl font-bold font-display text-white tracking-tight">Personal LLM Powerhouse</h2>
+          <p class="text-xs md:text-sm text-slate-300 max-w-xl leading-relaxed">
+            Run local AI models offline with zero token costs. Access our optimized Python LLM API package and developer setup guide.
+          </p>
+        </div>
+        <div class="z-10 shrink-0 w-full md:w-auto flex justify-center">
+          <button data-url="/api.html" data-target="_self" class="api-btn w-full md:w-auto inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 hover:from-cyan-400 hover:to-blue-400 text-black font-extrabold text-sm md:text-base rounded-2xl transition-all duration-300 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-400/35 transform active:scale-[0.98] cursor-pointer gap-2.5 border border-cyan-300/30">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Personal LLM Powerhouse Download Now</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bento Grid Blocks (4 cards) -->
+      <div class="grid md:grid-cols-2 gap-6 items-stretch">
+        
+        <!-- Option 1: LightX Editor -->
+        <div class="bg-white/[0.02] hover:bg-white/[0.04] border border-white/10 p-8 rounded-3xl flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group shadow-2xl">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all duration-500"></div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center mb-6 shadow-md shadow-cyan-950/20 text-cyan-400 font-bold">LX</div>
+            <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-3 tracking-tight">LightX Editor API</h2>
+            <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-8">
+              Advanced deep-learning cutout technology. Processes high-definition portraits and products with robust edge optimization.
+            </p>
+          </div>
+          <div class="mt-auto">
+            <button data-url="https://www.lightxeditor.com/api/remove-background/" class="api-btn w-full inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-100 font-semibold text-sm rounded-xl transition-all duration-300 shadow-lg shadow-cyan-950/40 hover:shadow-cyan-900/30 transform active:scale-[0.98] border border-cyan-400/20 cursor-pointer">
+              Get LightX API Key
+            </button>
+          </div>
+        </div>
+
+        <!-- Option 2: Slazzer API -->
+        <div class="bg-white/[0.02] hover:bg-white/[0.04] border border-white/10 p-8 rounded-3xl flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group shadow-2xl">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-all duration-500"></div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center mb-6 shadow-md shadow-blue-950/20 text-blue-400 font-bold">SZ</div>
+            <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-3 tracking-tight">Slazzer API</h2>
+            <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-8">
+              Incredibly fast automatic image background isolation. Ideal for e-commerce, real estate, and rapid inventory processing workflows.
+            </p>
+          </div>
+          <div class="mt-auto">
+            <button data-url="https://www.slazzer.com/api" class="api-btn w-full inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-slate-100 font-semibold text-sm rounded-xl transition-all duration-300 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/30 transform active:scale-[0.98] border border-blue-400/20 cursor-pointer">
+              Get Slazzer API Key
+            </button>
+          </div>
+        </div>
+
+        <!-- Option 3: Photoroom API -->
+        <div class="bg-white/[0.02] hover:bg-white/[0.04] border border-white/10 p-8 rounded-3xl flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group shadow-2xl">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all duration-500"></div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center mb-6 shadow-md shadow-cyan-950/20 text-cyan-400 font-bold">PR</div>
+            <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-3 tracking-tight">PhotoRoom API</h2>
+            <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-8">
+              Industry-leading background removal and shadow generator. Best-in-class product studio cutouts trusted by top sellers.
+            </p>
+          </div>
+          <div class="mt-auto">
+            <button data-url="https://www.photoroom.com/api/remove-background" class="api-btn w-full inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-100 font-semibold text-sm rounded-xl transition-all duration-300 shadow-lg shadow-cyan-950/40 hover:shadow-cyan-900/30 transform active:scale-[0.98] border border-cyan-400/20 cursor-pointer">
+              Get PhotoRoom API Key
+            </button>
+          </div>
+        </div>
+
+        <!-- Option 4: Remove.bg API -->
+        <div class="bg-white/[0.02] hover:bg-white/[0.04] border border-white/10 p-8 rounded-3xl flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group shadow-2xl">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-all duration-500"></div>
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center mb-6 shadow-md shadow-blue-950/20 text-blue-400 font-bold">RB</div>
+            <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-3 tracking-tight">Remove.bg API</h2>
+            <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-8">
+              The original gold standard for automated background removal. Elite precision and hair-strand level edge detection.
+            </p>
+          </div>
+          <div class="mt-auto">
+            <button data-url="https://www.remove.bg/api" class="api-btn w-full inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-slate-100 font-semibold text-sm rounded-xl transition-all duration-300 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/30 transform active:scale-[0.98] border border-blue-400/20 cursor-pointer">
+              Get Remove.bg API Key
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Banner Ad (728x90) -->
+      <div class="w-full flex justify-center mt-8 shrink-0 z-20">
+        <div class="w-full max-w-[728px] h-[90px] bg-slate-950/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center relative">
+          <span class="absolute top-1 right-2 text-[7px] text-slate-600 font-mono tracking-widest uppercase">Sponsored Banner</span>
+          <script>
+            atOptions = {
+              'key' : '9d18bb6b3fefe2137e9e157b3604a6f7',
+              'format' : 'iframe',
+              'height' : 90,
+              'width' : 728,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/9d18bb6b3fefe2137e9e157b3604a6f7/invoke.js"></script>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer Bar -->
+    <footer class="h-12 bg-black/60 border-t border-white/5 px-6 md:px-8 flex items-center justify-between text-[11px] text-slate-500 relative z-25">
+      <div class="flex gap-4">
+        <span>© 2026 OpenBG AI</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="hidden sm:inline">Made by PreatomYT</span>
+        <span>•</span>
+        <span class="text-cyan-500/80">API Keys Directory</span>
+      </div>
+      <div class="text-right font-mono text-[10px]">
+        Build v2.4.2-stable
+      </div>
+    </footer>
+
+    <!-- Ad script blocker & dynamic link router -->
+    <script>
+      function handleAdRedirect(actionCallback) {
+        const AD_URL = "https://www.effectivecpmnetwork.com/h4pcytdwq?key=b96243be17076bf65bd54aa1b633b434";
+        const COOLDOWN_MS = 60 * 1000; // 1 minute
+        
+        const lastAdTime = localStorage.getItem('lastAdTime');
+        const now = Date.now();
+        
+        if (!lastAdTime || (now - parseInt(lastAdTime, 10)) > COOLDOWN_MS) {
+          localStorage.setItem('lastAdTime', now.toString());
+          window.open(AD_URL, '_blank');
+          // Also execute the action immediately after opening the ad
+          setTimeout(function() {
+            actionCallback();
+          }, 200);
+        } else {
+          actionCallback();
+        }
+      }
+
+      document.querySelectorAll('.api-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetUrl = this.getAttribute('data-url');
+          const targetMode = this.getAttribute('data-target') || '_blank';
+          handleAdRedirect(function() {
+            if (targetMode === '_self') {
+              window.location.href = targetUrl;
+            } else {
+              window.open(targetUrl, '_blank');
+            }
+          });
+        });
+      });
+    </script>
+    <!-- AdBlocker Detector & Locker -->
+    <script type="module" src="/src/adblock.js"></script>
+  </body>
+</html>
