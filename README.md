@@ -67,21 +67,24 @@ Open VS Code → **File** → **Open Folder** → Select the extracted folder
 ### Step 3 — Install Python Dependencies
 Open the terminal in VS Code (**Terminal → New Terminal**) and run:
 ```bash
+cd project/backend
 pip install -r requirements.txt
 ```
 
 ### Step 4 — Install Frontend Dependencies
-In the same terminal, run:
+Go back to the main folder and run:
 ```bash
+cd ../..
 npm install
 ```
 
 ### Step 5 — Start the App
-Run the Python backend:
+Run the Python backend (Terminal 1):
 ```bash
+cd project/backend
 python app.py
 ```
-Then in a new terminal, run the React frontend:
+Then open a **new terminal** and run the React frontend (Terminal 2):
 ```bash
 npm start
 ```
@@ -104,11 +107,13 @@ Upload your image and enjoy background removal! 🎉
 
 ```
 I downloaded the OpenBG AI project. Please help me:
-1. Install all Python dependencies using pip install -r requirements.txt
-2. Install Node.js dependencies using npm install
-3. Run the Python backend with python app.py
-4. Run the React frontend with npm start
-5. Open the app in my browser at http://localhost:3000
+1. Open terminal and go to backend folder: cd project/backend
+2. Install Python dependencies: pip install -r requirements.txt
+3. Run the Python backend: python app.py
+4. Open a new terminal, go back to main folder: cd ../..
+5. Install frontend dependencies: npm install
+6. Run the React frontend: npm start
+7. Open the app in my browser at http://localhost:3000
 Please do each step one by one and fix any errors.
 ```
 
@@ -120,13 +125,16 @@ Please do each step one by one and fix any errors.
 
 ```
 OpenBG-AI/
-├── app.py                 # Python AI backend
-├── requirements.txt       # Python dependencies
-├── model/                 # AI model files
-├── src/                   # React frontend source
-├── public/                # Static files
-├── package.json           # Node.js dependencies
-└── README.md              # This file
+├── project/
+│   └── backend/
+│       ├── app.py             # Python AI backend
+│       └── requirements.txt   # Python dependencies
+├── src/                       # React frontend source
+├── public/                    # Static files
+├── assets/                    # Images and icons
+├── index.html                 # Main HTML file
+├── package.json               # Node.js dependencies
+└── README.md                  # This file
 ```
 
 ---
