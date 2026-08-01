@@ -1,0 +1,56 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [0 0 612 792] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Length 600 >>
+stream
+2.0 g
+BT
+/F1 22 Tf
+50 700 Td
+(HOW TO CREATE A PERSONAL LLM MODEL USING PYTHON) Tj
+0 -40 Td
+/F1 12 Tf
+(This guide provides instructions to train, format, and load local Large Language Models.) Tj
+0 -25 Td
+(Step 1: Install Required Packages) Tj
+0 -15 Td
+(   pip install transformers torch accelerate llama-cpp-python) Tj
+0 -25 Td
+(Step 2: Download Open-Source Weights from Hugging Face) Tj
+0 -15 Td
+(   Download GGUF or Safetensors models like Meta-Llama-3-8B-Instruct) Tj
+0 -25 Td
+(Step 3: Serve the LLM using Flask or llama.cpp API Server) Tj
+0 -15 Td
+(   Reference code and startup scripts can be found inside the LLM_API.zip package.) Tj
+0 -40 Td
+(Created with OpenBG AI - Remove Background. Keep Focus.) Tj
+0 -15 Td
+(PreatomYT - Offline Developer Kit 2026) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000242 00000 n 
+0000000318 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+970
+%%EOF
