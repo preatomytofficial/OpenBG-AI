@@ -1,5 +1,3 @@
-# OpenBG-AI
-
 # 🖼️ OpenBG AI — Professional AI Background Remover
 
 <p align="center">
